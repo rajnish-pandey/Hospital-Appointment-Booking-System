@@ -37,7 +37,7 @@ app.post("/", function(req,res) {
 
     const options = {
         method: "post",
-        auth: "rajnishp:ef36f7023c436f2b67883ae1270eccf1-us6"
+        auth: "api_key_placeholder_txt" // not sharing api key details online due to security issues
     }
 
     const request = https.request(url, options, function(response) {
@@ -64,10 +64,3 @@ app.post("/failure", function(req, res) {
 app.listen(process.env.PORT || 3000, function() {
     console.log("Server is running on port 3000 as well as on heroku's server");
 });
-
-// Api Key
-// ef36f7023c436f2b67883ae1270eccf1-us6
-
-// list id
-// abd25b2cd7
-// https://tim-minister-74463.herokuapp.com/
