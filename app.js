@@ -1,19 +1,73 @@
-const sign_in_btn = document.querySelector("#sign-in-btn");
-const sign_up_btn = document.querySelector("#sign-up-btn");
-const container = document.querySelector(".container");
+const express = require("express");
+const bodyParser = require("body-parser");
+const request = require("request");
+const https = require("https");
 
-sign_up_btn.addEventListener("click", () => {
-  container.classList.add("sign-up-mode");
-  document.getElementById('brand2').style.display="none";
-  document.getElementById('brand1').style.display="block";
-  document.getElementById('imagerightid').style.display="block";
-  
-  
+const app = express();
+
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.get("/", function(req, res) {
+    res.sendFile(__dirname + "/signup.html");
 });
 
-sign_in_btn.addEventListener("click", () => {
-  container.classList.remove("sign-up-mode");
-  document.getElementById('brand2').style.display="block";
-  document.getElementById('brand1').style.display="none";
-  document.getElementById('imagerightid').style.display="none";
+app.post("/", function(req,res) {
+    const firstname = req.body.fname;
+    const lastname = req.body.lname;
+    const email = req.body.email;
+
+    const data = {
+        members: [
+            {
+                email_address: email,
+                status: "subscribed",
+                merge_fields : {
+                    FNAME: firstname,
+                    LNAME: lastname
+                }
+
+            }
+        ]
+    };
+
+    const jsonData = JSON.stringify(data);
+
+    const url = "https://us6.api.mailchimp.com/3.0/lists/abd25b2cd7";
+
+    const options = {
+        method: "post",
+        auth: "rajnishp:9270c52950c2cb597a3f6720d6f85e3a-us6"
+    }
+
+    const request = https.request(url, options, function(response) {
+
+        if (response.statusCode === 200) {
+            res.sendFile(__dirname + "/success.html");
+        } else {
+            res.sendFile(__dirname + "/failure.html");
+        }
+
+        response.on("data", function(data) {
+            console.log(JSON.parse(data));
+        })
+    })
+
+    request.write(jsonData);
+    request.end();
 });
+
+app.post("/failure", function(req, res) {
+    res.redirect("/");
+});
+
+app.listen(process.env.PORT || 3000, function() {
+    console.log("Server is running on port 3000 as well as on heroku's server");
+});
+
+// Api Key
+// 9270c52950c2cb597a3f6720d6f85e3a-us6
+
+// list id
+// abd25b2cd7
+// https://tim-minister-74463.herokuapp.com/
