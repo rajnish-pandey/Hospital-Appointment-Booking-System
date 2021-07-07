@@ -20,3 +20,17 @@ Salient features of our project are as follows:-
 7. Registered patients also get an option to sign up to the regular updates(weekly/monthly) newsletters.
 8. After signup, the users can also sign out anytime from the newsletter.
 9. If a patient feels, he/she can also delete his account by entering the mail I'd and password.
+
+
+Members and their roles:
+Role of Rajnish Pandey:
+1. Built appointment booking form html page.
+2. Implemented weekly newsletter to recieve health related tips using MailChimp api, node, and working backend part of it.
+
+Role of Sohini Ghosh:
+1. Complete front end development of the Login/SignUp page, Delete appointment page, Hospital login page.
+2. The CSS, JS files was also created by Sohini.
+
+Role of Bishwayan Ghosh:
+1. All the backend tasks like recording the registrations and deletions of new users and their appointments.
+2. Minor modifications in front end of pages: 'bookapt.php', 'del.php' and 'hospitallogin.php'.
